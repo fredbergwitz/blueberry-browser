@@ -25,7 +25,7 @@ const useAutoScroll = (messages: Message[]) => {
             setTimeout(() => {
                 scrollRef.current?.scrollIntoView({
                     behavior: 'smooth',
-                    block: 'end'
+                    block: 'end',
                 })
             }, 100)
         }
@@ -73,7 +73,8 @@ const StreamingText: React.FC<{ content: string }> = ({ content }) => {
 
 // Markdown Renderer Component
 const Markdown: React.FC<{ content: string }> = ({ content }) => (
-    <div className="prose prose-sm dark:prose-invert max-w-none 
+    <div
+        className="prose prose-sm dark:prose-invert max-w-none 
                     prose-headings:text-foreground prose-p:text-foreground 
                     prose-strong:text-foreground prose-ul:text-foreground 
                     prose-ol:text-foreground prose-li:text-foreground
@@ -81,7 +82,8 @@ const Markdown: React.FC<{ content: string }> = ({ content }) => (
                     prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 
                     prose-code:rounded prose-code:text-sm prose-code:text-foreground
                     prose-pre:bg-muted dark:prose-pre:bg-muted/50 prose-pre:p-3 
-                    prose-pre:rounded-lg prose-pre:overflow-x-auto">
+                    prose-pre:rounded-lg prose-pre:overflow-x-auto"
+    >
         <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks]}
             components={{
@@ -89,7 +91,10 @@ const Markdown: React.FC<{ content: string }> = ({ content }) => (
                 code: ({ node, className, children, ...props }) => {
                     const inline = !className
                     return inline ? (
-                        <code className="bg-muted dark:bg-muted/50 px-1 py-0.5 rounded text-sm text-foreground" {...props}>
+                        <code
+                            className="bg-muted dark:bg-muted/50 px-1 py-0.5 rounded text-sm text-foreground"
+                            {...props}
+                        >
                             {children}
                         </code>
                     ) : (
@@ -119,15 +124,11 @@ const Markdown: React.FC<{ content: string }> = ({ content }) => (
 // Assistant Message Component - appears on the left
 const AssistantMessage: React.FC<{ content: string; isStreaming?: boolean }> = ({
     content,
-    isStreaming
+    isStreaming,
 }) => (
     <div className="relative w-full animate-fade-in">
         <div className="py-1">
-            {isStreaming ? (
-                <StreamingText content={content} />
-            ) : (
-                <Markdown content={content} />
-            )}
+            {isStreaming ? <StreamingText content={content} /> : <Markdown content={content} />}
         </div>
     </div>
 )
@@ -141,10 +142,12 @@ const LoadingIndicator: React.FC = () => {
     }, [])
 
     return (
-        <div className={cn(
-            "transition-transform duration-300 ease-in-out",
-            isVisible ? "scale-100" : "scale-0"
-        )}>
+        <div
+            className={cn(
+                'transition-transform duration-300 ease-in-out',
+                isVisible ? 'scale-100' : 'scale-0'
+            )}
+        >
             ...
         </div>
     )
@@ -188,11 +191,13 @@ const ChatInput: React.FC<{
     }
 
     return (
-        <div className={cn(
-            "w-full border p-3 rounded-3xl bg-background dark:bg-secondary",
-            "shadow-chat animate-spring-scale outline-none transition-all duration-200",
-            isFocused ? "border-primary/20 dark:border-primary/30" : "border-border"
-        )}>
+        <div
+            className={cn(
+                'w-full border p-3 rounded-3xl bg-background dark:bg-secondary',
+                'shadow-chat animate-spring-scale outline-none transition-all duration-200',
+                isFocused ? 'border-primary/20 dark:border-primary/30' : 'border-border'
+            )}
+        >
             {/* Input Area */}
             <div className="w-full px-3 py-2">
                 <div className="w-full flex items-start gap-3">
@@ -222,10 +227,10 @@ const ChatInput: React.FC<{
                     onClick={handleSubmit}
                     disabled={disabled || !value.trim()}
                     className={cn(
-                        "size-9 rounded-full flex items-center justify-center",
-                        "transition-all duration-200",
-                        "bg-primary text-primary-foreground",
-                        "hover:opacity-80 disabled:opacity-50"
+                        'size-9 rounded-full flex items-center justify-center',
+                        'transition-all duration-200',
+                        'bg-primary text-primary-foreground',
+                        'hover:opacity-80 disabled:opacity-50'
                     )}
                 >
                     <ArrowUp className="size-5" />
@@ -276,16 +281,17 @@ export const Chat: React.FC = () => {
                 i++ // Skip next message since we've paired it
             }
             conversationTurns.push(turn)
-        } else if (messages[i].role === 'assistant' &&
-            (i === 0 || messages[i - 1]?.role !== 'user')) {
+        } else if (
+            messages[i].role === 'assistant' &&
+            (i === 0 || messages[i - 1]?.role !== 'user')
+        ) {
             // Handle standalone assistant messages
             conversationTurns.push({ assistant: messages[i] })
         }
     }
 
     // Check if we need to show loading after the last turn
-    const showLoadingAfterLastTurn = isLoading &&
-        messages[messages.length - 1]?.role === 'user'
+    const showLoadingAfterLastTurn = isLoading && messages[messages.length - 1]?.role === 'user'
 
     return (
         <div className="flex flex-col h-full bg-background">
@@ -294,11 +300,7 @@ export const Chat: React.FC = () => {
                 <div className="h-8 max-w-3xl mx-auto px-4">
                     {/* New Chat Button - Floating */}
                     {messages.length > 0 && (
-                        <Button
-                            onClick={clearChat}
-                            title="Start new chat"
-                            variant="ghost"
-                        >
+                        <Button onClick={clearChat} title="Start new chat" variant="ghost">
                             <Plus className="size-4" />
                             New Chat
                         </Button>
@@ -306,7 +308,6 @@ export const Chat: React.FC = () => {
                 </div>
 
                 <div className="pb-4 relative max-w-3xl mx-auto px-4">
-
                     {messages.length === 0 ? (
                         // Empty State
                         <div className="flex items-center justify-center h-full min-h-[400px]">
@@ -319,7 +320,6 @@ export const Chat: React.FC = () => {
                         </div>
                     ) : (
                         <>
-
                             {/* Render conversation turns */}
                             {conversationTurns.map((turn, index) => (
                                 <ConversationTurnComponent
