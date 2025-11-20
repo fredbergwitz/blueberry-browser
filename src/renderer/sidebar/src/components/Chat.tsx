@@ -6,7 +6,7 @@ import { ArrowUp, Plus } from 'lucide-react'
 import { useChat } from '../contexts/ChatContext'
 import { cn } from '@common/lib/utils'
 import { Button } from '@common/components/Button'
-import Model from './ModelCanvas'
+import { PersonaSelector } from './PersonaSelector'
 
 interface Message {
     id: string
@@ -312,15 +312,13 @@ export const Chat: React.FC = () => {
                     {messages.length === 0 ? (
                         // Empty State
                         <div className="flex items-center justify-center h-full min-h-[400px]">
-                            <div className="text-center animate-fade-in max-w-md mx-auto gap-4 flex flex-col">
-                                <div className="w-24 h-24 relative mx-auto overflow-hidden rounded-full transition-all duration-500 ease-out bg-secondary">
-                                    <Model />
-                                    {/* Vignette overlay (mask dont work on 3d models) */}
-                                    <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,var(--tw-gradient-stops))] from-transparent from-60% to-secondary to-80%"></div>
+                            <div className="w-full animate-fade-in">
+                                <div className="mb-8">
+                                    <PersonaSelector />
                                 </div>
-
-                                {/* Content */}
-                                <p className="text-muted-foreground text-xs font-medium">Test</p>
+                                <p className="text-center text-muted-foreground text-xs font-medium">
+                                    Choose your persona
+                                </p>
                             </div>
                         </div>
                     ) : (
@@ -338,7 +336,6 @@ export const Chat: React.FC = () => {
                             ))}
                         </>
                     )}
-
                     {/* Scroll anchor */}
                     <div ref={scrollRef} />
                 </div>
