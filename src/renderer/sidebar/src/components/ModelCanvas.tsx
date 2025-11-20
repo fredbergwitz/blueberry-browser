@@ -1,21 +1,24 @@
 import { Canvas } from '@react-three/fiber'
 
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { OrbitControls, useGLTF, Clone } from '@react-three/drei'
 
-const Model = () => {
-    const persona = useGLTF('/models/Hexagon-idle.glb')
+interface ModelProps {
+    url?: string
+}
+
+const Model = ({ url = '/models/Hexagon-idle.glb' }: ModelProps) => {
+    const { scene } = useGLTF(url)
 
     return (
         <Canvas
-            className="cursor-pointer"
+            className="w-full h-full block"
             frameloop="demand"
-            gl={{ antialias: true }}
-            camera={{ position: [-4, 3, 6], fov: 20, near: 0.1, far: 200 }}
+            gl={{ antialias: true, preserveDrawingBuffer: true }}
+            camera={{ position: [-4, 3, 6], fov: 22, near: 0.1, far: 200 }}
         >
             <ambientLight intensity={1.5} />
             <directionalLight position={[1, 1, 1]} intensity={1} />
             <pointLight position={[10, 10, 10]} intensity={1} />
-            {/* Rimlight */}
             <spotLight
                 position={[0, 0, -10]}
                 intensity={200}
@@ -24,11 +27,12 @@ const Model = () => {
                 penumbra={1}
             />
 
-            <primitive object={persona.scene} scale={15} position={[0, -2, 0]} />
+            <Clone object={scene} scale={15} position={[0, -2, 0]} />
 
             <OrbitControls
                 autoRotate={false}
                 enableZoom={false}
+                enableRotate={false}
                 enablePan={false}
                 minPolarAngle={Math.PI / 2}
                 maxPolarAngle={Math.PI / 2}
