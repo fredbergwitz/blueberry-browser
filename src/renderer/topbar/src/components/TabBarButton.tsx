@@ -12,7 +12,7 @@ export const TabBarButton: React.FC<TabBarButtonProps> = ({ Icon, onClick, class
     return (
         <div
             className={cn(
-                "flex items-center justify-center h-8 w-10 rounded-md",
+                "flex items-center justify-center h-7 w-10 rounded-md",
                 "hover:bg-primary/10 active:bg-primary/20 app-region-no-drag",
                 "transition-colors duration-200 cursor-pointer",
                 className
@@ -20,7 +20,7 @@ export const TabBarButton: React.FC<TabBarButtonProps> = ({ Icon, onClick, class
             onClick={onClick}
             tabIndex={-1}
         >
-            <Icon className="size-4.5" />
+            <Icon className="size-4" />
         </div>
     );
 };

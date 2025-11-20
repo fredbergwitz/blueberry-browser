@@ -24,7 +24,7 @@ const TabItem: React.FC<TabItemProps> = ({
     onActivate
 }) => {
     const baseClassName = cn(
-        "relative flex items-center h-8 pl-2 pr-1.5 select-none rounded-md",
+        "relative flex items-center h-7 min-w-[200px] pl-1.5 pr-1.5 select-none rounded-lg",
         "text-primary group/tab transition-all duration-200 cursor-pointer",
         "app-region-no-drag", // Make tabs clickable
         isActive
@@ -96,7 +96,7 @@ export const TabBar: React.FC = () => {
             <div className="pl-20" />
 
             {/* Tabs */}
-            <div className="flex-1 overflow-x-auto flex">
+            <div className="overflow-x-auto flex">
                 {tabs.map(tab => (
                     <TabItem
                         key={tab.id}
@@ -111,7 +111,7 @@ export const TabBar: React.FC = () => {
             </div>
 
             {/* Add Tab Button */}
-            <div className="pl-1 pr-2">
+            <div className="pl-0.5">
                 <TabBarButton
                     Icon={Plus}
                     onClick={handleCreateTab}

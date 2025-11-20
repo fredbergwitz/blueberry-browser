@@ -46,7 +46,7 @@ export class TopBar {
       x: 0,
       y: 0,
       width: bounds.width,
-      height: 88, // Fixed height for topbar (40px tabs + 48px address bar)
+      height: 68, // Fixed height for topbar
     });
   }
 

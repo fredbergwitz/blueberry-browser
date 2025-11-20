@@ -14,13 +14,13 @@ export class Window {
   constructor() {
     // Create the browser window.
     this._baseWindow = new BaseWindow({
-      width: 1000,
+      width: 1200,
       height: 800,
       show: true,
       autoHideMenuBar: false,
       titleBarStyle: "hidden",
       ...(process.platform !== "darwin" ? { titleBarOverlay: true } : {}),
-      trafficLightPosition: { x: 15, y: 13 },
+      trafficLightPosition: { x: 12, y: 10 },
     });
 
     this._baseWindow.setMinimumSize(1000, 800);
@@ -100,9 +100,9 @@ export class Window {
     const bounds = this._baseWindow.getBounds();
     tab.view.setBounds({
       x: 0,
-      y: 88, // Start below the topbar
+      y: 68, // Start below the topbar
       width: bounds.width - 400, // Subtract sidebar width
-      height: bounds.height - 88, // Subtract topbar height
+      height: bounds.height - 68, // Subtract topbar height
     });
 
     // Store the tab
@@ -238,9 +238,9 @@ export class Window {
     this.tabsMap.forEach((tab) => {
       tab.view.setBounds({
         x: 0,
-        y: 88, // Start below the topbar
+        y: 68, // Start below the topbar
         width: bounds.width - sidebarWidth,
-        height: bounds.height - 88, // Subtract topbar height
+        height: bounds.height - 68, // Subtract topbar height
       });
     });
   }

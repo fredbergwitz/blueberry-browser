@@ -52,9 +52,9 @@ export class SideBar {
     const bounds = this.baseWindow.getBounds();
     this.webContentsView.setBounds({
       x: bounds.width - 400, // 400px width sidebar on the right
-      y: 88, // Start below the topbar
+      y: 68, // Start below the topbar
       width: 400,
-      height: bounds.height - 88, // Subtract topbar height
+      height: bounds.height - 68, // Subtract topbar height
     });
   }
 

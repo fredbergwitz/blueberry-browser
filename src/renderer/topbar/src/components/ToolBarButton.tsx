@@ -22,7 +22,7 @@ export const ToolBarButton: React.FC<ToolBarButtonProps> = ({
     return (
         <div
             className={cn(
-                "size-8 flex items-center justify-center rounded-md",
+                "size-7 flex items-center justify-center rounded-md",
                 "text-secondary-foreground app-region-no-drag",
                 "transition-all duration-200",
                 !active ? "opacity-50" : "hover:bg-muted active:brightness-95 cursor-pointer",
@@ -32,7 +32,7 @@ export const ToolBarButton: React.FC<ToolBarButtonProps> = ({
             onClick={active ? onClick : undefined}
             tabIndex={-1}
         >
-            {children || (Icon && <Icon className="size-4.5" />)}
+            {children || (Icon && <Icon className="size-4" />)}
         </div>
     );
 };

@@ -113,7 +113,7 @@ export const AddressBar: React.FC = () => {
     return (
         <>
             {/* Navigation Controls */}
-            <div className="flex gap-1.5 app-region-no-drag">
+            <div className="flex gap-1 app-region-no-drag">
                 <ToolBarButton
                     Icon={ArrowLeft}
                     onClick={goBack}
@@ -129,9 +129,9 @@ export const AddressBar: React.FC = () => {
                     active={activeTab !== null && !isLoading}
                 >
                     {isLoading ? (
-                        <Loader2 className="size-4.5 animate-spin" />
+                        <Loader2 className="size-4 animate-spin" />
                     ) : (
-                        <RefreshCw className="size-4.5" />
+                        <RefreshCw className="size-4" />
                     )}
                 </ToolBarButton>
             </div>
@@ -161,7 +161,7 @@ export const AddressBar: React.FC = () => {
                 <div
                     onClick={handleFocus}
                     className={cn(
-                        "flex-1 px-3 h-8 rounded-md cursor-text group/address-bar",
+                        "flex-1 px-1.5 h-7 rounded-lg cursor-text group/address-bar bg-muted",
                         "hover:bg-muted text-muted-foreground app-region-no-drag",
                         "transition-colors duration-200",
                         "dark:hover:bg-muted/50"
@@ -174,7 +174,7 @@ export const AddressBar: React.FC = () => {
                         </div>
 
                         {/* URL Display */}
-                        <div className="text-[0.8rem] leading-normal truncate flex-1">
+                        <div className="text-[0.8rem] leading-tight truncate flex-1">
                             {activeTab ? (
                                 <>
                                     <span className="text-foreground dark:text-foreground">{getDomain()}</span>
