@@ -2,7 +2,7 @@ import React from 'react'
 import { Plus, X } from 'lucide-react'
 import { useBrowser } from '../contexts/BrowserContext'
 import { Favicon } from '../components/Favicon'
-import { TabBarButton } from '../components/TabBarButton'
+import { NewTabButton } from '../components/NewTabButton'
 import { cn } from '@common/lib/utils'
 
 interface TabItemProps {
@@ -21,26 +21,23 @@ const TabItem: React.FC<TabItemProps> = ({
     isActive,
     isPinned = false,
     onClose,
-    onActivate
+    onActivate,
 }) => {
     const baseClassName = cn(
-        "relative flex items-center h-7 min-w-[200px] pl-1.5 pr-1.5 select-none rounded-lg",
-        "text-primary group/tab transition-all duration-200 cursor-pointer",
-        "app-region-no-drag", // Make tabs clickable
+        'relative flex items-center h-7 min-w-[200px] pl-1.5 pr-1.5 select-none rounded-lg',
+        'text-primary group/tab transition-all duration-200 cursor-pointer',
+        'app-region-no-drag', // Make tabs clickable
         isActive
-            ? "bg-background shadow-tab dark:bg-secondary dark:shadow-none"
-            : "bg-transparent hover:bg-muted/50 dark:hover:bg-muted/30",
-        isPinned ? "w-8 !px-0 justify-center" : ""
+            ? 'bg-background shadow-tab dark:bg-secondary dark:shadow-none'
+            : 'bg-transparent hover:bg-muted/50 dark:hover:bg-muted/30',
+        isPinned ? 'w-8 !px-0 justify-center' : ''
     )
 
     return (
         <div className="py-1 px-0.5">
-            <div
-                className={baseClassName}
-                onClick={() => !isActive && onActivate()}
-            >
+            <div className={baseClassName} onClick={() => !isActive && onActivate()}>
                 {/* Favicon */}
-                <div className={cn(!isPinned && "mr-2")}>
+                <div className={cn(!isPinned && 'mr-2')}>
                     <Favicon src={favicon} />
                 </div>
 
@@ -59,10 +56,10 @@ const TabItem: React.FC<TabItemProps> = ({
                             onClose()
                         }}
                         className={cn(
-                            "flex-shrink-0 p-1 rounded-md transition-opacity",
-                            "hover:bg-muted dark:hover:bg-muted/50",
-                            "opacity-0 group-hover/tab:opacity-100",
-                            isActive && "opacity-100"
+                            'flex-shrink-0 p-1 rounded-md transition-opacity',
+                            'hover:bg-muted dark:hover:bg-muted/50',
+                            'opacity-0 group-hover/tab:opacity-100',
+                            isActive && 'opacity-100'
                         )}
                     >
                         <X className="size-3 text-primary dark:text-primary" />
@@ -97,7 +94,7 @@ export const TabBar: React.FC = () => {
 
             {/* Tabs */}
             <div className="overflow-x-auto flex">
-                {tabs.map(tab => (
+                {tabs.map((tab) => (
                     <TabItem
                         key={tab.id}
                         id={tab.id}
@@ -112,12 +109,8 @@ export const TabBar: React.FC = () => {
 
             {/* Add Tab Button */}
             <div className="pl-0.5">
-                <TabBarButton
-                    Icon={Plus}
-                    onClick={handleCreateTab}
-                />
+                <NewTabButton Icon={Plus} onClick={handleCreateTab} />
             </div>
         </div>
     )
 }
-
