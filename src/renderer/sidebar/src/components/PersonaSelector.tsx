@@ -21,13 +21,13 @@ type Persona = {
 
 const personas: Persona[] = [
     {
-        id: 'marcus',
-        name: 'Marcus',
-        url: '/models/Triangle-idle.glb',
+        id: 'astrid',
+        name: 'Astrid',
+        url: '/models/Hexagon-idle.glb',
         instructions: 'Think sharp',
         skills: 'Analyze product, Update CRM, Qualify leads',
         notes: 'Sales pro',
-        color: 'Green',
+        color: 'Yellow',
         shape: 'Triangle',
     },
     {
@@ -43,12 +43,12 @@ const personas: Persona[] = [
     {
         id: 'sally',
         name: 'Sally',
-        url: '/models/Hexagon-idle.glb',
+        url: '/models/Triangle-idle.glb',
         instructions: 'Stay creative',
         skills: 'Source candidates, Screen resumes, Schedule interviews',
         notes: 'Recruiting expert',
-        color: 'Purple',
-        shape: 'Hexagon',
+        color: 'Green',
+        shape: 'Triangle',
     },
     {
         id: 'emma',
@@ -96,10 +96,10 @@ const ModelItem = ({ url, name, isActive }: { url: string; name: string; isActiv
     return (
         <div
             className={cn(
-                'flex aspect-square items-center justify-center border bg-background rounded-sm overflow-hidden transition-all duration-300 ease-out',
+                'flex aspect-square items-center justify-center border bg-background rounded-sm overflow-hidden transition-all duration-300 ease-out scale-75',
                 isActive
-                    ? 'border-zinc-950 opacity-100 dark:border-zinc-50'
-                    : 'border-zinc-200 opacity-30 dark:border-zinc-800'
+                    ? 'border-zinc-950 opacity-100 dark:border-zinc-50 scale-75'
+                    : 'border-zinc-200 opacity-100 dark:border-zinc-800 scale-100'
             )}
         >
             <div className="relative w-full h-full overflow-hidden">
@@ -115,13 +115,26 @@ export function PersonaSelector() {
 
     return (
         <div className="relative w-full max-w-[300px] mx-auto">
-            <Carousel index={selectedIndex} onIndexChange={setSelectedIndex}>
+            <Carousel
+                className="
+                    relative
+                    /* Left Gradient (Before) */
+                    before:absolute before:inset-0 before:z-10 before:pointer-events-none
+                    before:bg-gradient-to-r before:from-background before:from-0% before:to-transparent before:to-30%
+                    /* Right Gradient (After) */
+                    after:absolute after:inset-0 after:z-10 after:pointer-events-none
+                    after:bg-gradient-to-l after:from-background after:from-0% after:to-transparent after:to-30%
+                "
+                index={selectedIndex}
+                onIndexChange={setSelectedIndex}
+            >
                 <CarouselContent>
-                    <CarouselItem className="basis-1/3">
-                        <div className="aspect-square" /> {/* Spacer */}
+                    <CarouselItem className="basis-[37.5%]">
+                        <div className="aspect-square" />
                     </CarouselItem>
+
                     {personas.map((persona, i) => (
-                        <CarouselItem key={persona.id} className="basis-1/3">
+                        <CarouselItem key={persona.id} className="basis-1/4">
                             <ModelItem
                                 url={persona.url}
                                 name={persona.name}
