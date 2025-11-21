@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
-import { ArrowUp, Plus } from 'lucide-react'
+import { ArrowUp, Plus, Settings2 } from 'lucide-react'
 import { useChat } from '../contexts/ChatContext'
 import { cn } from '@common/lib/utils'
 import { Button } from '@common/components/Button'
@@ -75,14 +75,14 @@ const StreamingText: React.FC<{ content: string }> = ({ content }) => {
 // Markdown Renderer Component
 const Markdown: React.FC<{ content: string }> = ({ content }) => (
     <div
-        className="prose prose-sm dark:prose-invert max-w-none 
-                    prose-headings:text-foreground prose-p:text-foreground 
-                    prose-strong:text-foreground prose-ul:text-foreground 
+        className="prose prose-sm dark:prose-invert max-w-none
+                    prose-headings:text-foreground prose-p:text-foreground
+                    prose-strong:text-foreground prose-ul:text-foreground
                     prose-ol:text-foreground prose-li:text-foreground
                     prose-a:text-primary hover:prose-a:underline
-                    prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 
+                    prose-code:bg-muted prose-code:px-1 prose-code:py-0.5
                     prose-code:rounded prose-code:text-sm prose-code:text-foreground
-                    prose-pre:bg-muted dark:prose-pre:bg-muted/50 prose-pre:p-3 
+                    prose-pre:bg-muted dark:prose-pre:bg-muted/50 prose-pre:p-3
                     prose-pre:rounded-lg prose-pre:overflow-x-auto"
     >
         <ReactMarkdown
@@ -194,7 +194,7 @@ const ChatInput: React.FC<{
     return (
         <div
             className={cn(
-                'w-full border p-3 rounded-3xl bg-background dark:bg-secondary',
+                'w-full border p-2 rounded-3xl bg-background dark:bg-secondary',
                 'shadow-chat animate-spring-scale outline-none transition-all duration-200',
                 isFocused ? 'border-primary/20 dark:border-primary/30' : 'border-border'
             )}
@@ -210,10 +210,10 @@ const ChatInput: React.FC<{
                             onFocus={() => setIsFocused(true)}
                             onBlur={() => setIsFocused(false)}
                             onKeyDown={handleKeyDown}
-                            placeholder="Send a message..."
-                            className="w-full resize-none outline-none bg-transparent 
+                            placeholder="Chat with Astrid..."
+                            className="w-full resize-none outline-none bg-transparent
                                      text-foreground placeholder:text-muted-foreground
-                                     min-h-[24px] max-h-[200px]"
+                                     min-h-[24px] max-h-[200px] caret-[#C7A357]"
                             rows={1}
                             style={{ lineHeight: '24px' }}
                         />
@@ -222,7 +222,7 @@ const ChatInput: React.FC<{
             </div>
 
             {/* Send Button */}
-            <div className="w-full flex items-center gap-1.5 px-1 mt-2 mb-1">
+            <div className="w-full flex items-center gap-1.5 px-1 mt-6 mb-1">
                 <div className="flex-1" />
                 <button
                     onClick={handleSubmit}
@@ -230,7 +230,7 @@ const ChatInput: React.FC<{
                     className={cn(
                         'size-9 rounded-full flex items-center justify-center',
                         'transition-all duration-200',
-                        'bg-primary text-primary-foreground',
+                        'bg-[#C7A357] text-primary-foreground',
                         'hover:opacity-80 disabled:opacity-50'
                     )}
                 >
@@ -316,9 +316,10 @@ export const Chat: React.FC = () => {
                                 <div className="mb-8">
                                     <PersonaSelector />
                                 </div>
-                                <p className="text-center text-muted-foreground text-xs font-medium">
-                                    Choose your persona
-                                </p>
+                                <button className="flex items-center gap-2 text-xs font-medium text-muted-foreground transition-colors px-4 py-3 mx-auto rounded-full">
+                                    <Settings2 className="w-3.5 h-3.5" />
+                                    Astrid
+                                </button>
                             </div>
                         </div>
                     ) : (
