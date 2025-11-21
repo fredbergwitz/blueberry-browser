@@ -4,6 +4,12 @@ import { OrbitControls, useGLTF, Clone } from '@react-three/drei'
 
 interface ModelProps {
     url?: string
+    name?: string
+    instructions?: string
+    skills?: string
+    notes?: string
+    color?: string
+    shape?: string
 }
 
 const Model = ({ url = '/models/Hexagon-idle.glb' }: ModelProps) => {
