@@ -45,6 +45,7 @@ module.exports = {
           DEFAULT: "rgb(var(--card) / <alpha-value>)",
           foreground: "rgb(var(--card-foreground) / <alpha-value>)",
         },
+        persona: 'var(--persona)',
       },
       borderRadius: {
         lg: "var(--radius)",
