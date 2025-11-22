@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from '@common/lib/utils'
 import {
     Carousel,
@@ -27,7 +27,7 @@ const personas: Persona[] = [
         instructions: 'Think sharp',
         skills: 'Analyze product, Update CRM, Qualify leads',
         notes: 'Sales pro',
-        color: 'Yellow',
+        color: 'yellow-500',
         shape: 'Triangle',
     },
     {
@@ -37,7 +37,7 @@ const personas: Persona[] = [
         instructions: 'Be helpful',
         skills: 'Write code, Debug issues, Review PRs',
         notes: 'Programming specialist',
-        color: 'Blue',
+        color: 'blue-500',
         shape: 'Square',
     },
     {
@@ -47,7 +47,7 @@ const personas: Persona[] = [
         instructions: 'Stay creative',
         skills: 'Source candidates, Screen resumes, Schedule interviews',
         notes: 'Recruiting expert',
-        color: 'Green',
+        color: 'green-500',
         shape: 'Triangle',
     },
     {
@@ -57,7 +57,7 @@ const personas: Persona[] = [
         instructions: 'Stay balanced',
         skills: 'Write docs, Create content, Plan campaigns',
         notes: 'Marketing lead',
-        color: 'Red',
+        color: 'red-500',
         shape: 'Square',
     },
     {
@@ -67,7 +67,7 @@ const personas: Persona[] = [
         instructions: 'Be quick',
         skills: 'Handle tickets, Resolve issues, Escalate problems',
         notes: 'Support agent',
-        color: 'Yellow',
+        color: 'yellow-500',
         shape: 'Hexagon',
     },
     {
@@ -77,7 +77,7 @@ const personas: Persona[] = [
         instructions: 'Stay focused',
         skills: 'Track metrics, Generate reports, Analyze data',
         notes: 'Data analyst',
-        color: 'Orange',
+        color: 'orange-500',
         shape: 'Triangle',
     },
     {
@@ -87,7 +87,7 @@ const personas: Persona[] = [
         instructions: 'Be solid',
         skills: 'Design UI, Create mockups, Prototype features',
         notes: 'UX designer',
-        color: 'Teal',
+        color: 'teal-500',
         shape: 'Square',
     },
 ]
@@ -98,8 +98,8 @@ const ModelItem = ({ url, name, isActive }: { url: string; name: string; isActiv
             className={cn(
                 'flex aspect-square items-center justify-center border bg-background rounded-sm overflow-hidden transition-all duration-300 ease-out scale-75',
                 isActive
-                    ? 'border-zinc-950 opacity-100 dark:border-zinc-50 scale-75'
-                    : 'border-zinc-200 opacity-100 dark:border-zinc-800 scale-100'
+                    ? 'border-persona scale-75'
+                    : 'border-zinc-200 dark:border-zinc-800 scale-100'
             )}
         >
             <div className="relative w-full h-full overflow-hidden">
@@ -113,6 +113,13 @@ const ModelItem = ({ url, name, isActive }: { url: string; name: string; isActiv
 export function PersonaSelector() {
     const [selectedIndex, setSelectedIndex] = useState(0)
 
+    useEffect(() => {
+        const persona = personas[selectedIndex]
+        if (!persona) return
+
+        document.documentElement.dataset.theme = persona.color
+    }, [selectedIndex])
+
     return (
         <div className="relative w-full max-w-[300px] mx-auto">
             <Carousel
@@ -120,10 +127,10 @@ export function PersonaSelector() {
                     relative
                     /* Left Gradient (Before) */
                     before:absolute before:inset-0 before:z-10 before:pointer-events-none
-                    before:bg-gradient-to-r before:from-background before:from-0% before:to-transparent before:to-30%
+                    before:bg-gradient-to-r before:from-background before:from-0% before:to-transparent before:to-40%
                     /* Right Gradient (After) */
                     after:absolute after:inset-0 after:z-10 after:pointer-events-none
-                    after:bg-gradient-to-l after:from-background after:from-0% after:to-transparent after:to-30%
+                    after:bg-gradient-to-l after:from-background after:from-0% after:to-transparent after:to-40%
                 "
                 index={selectedIndex}
                 onIndexChange={setSelectedIndex}
