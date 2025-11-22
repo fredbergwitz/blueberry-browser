@@ -49,6 +49,18 @@
     --input: 40 40 40;
     --ring: 82 82 82;
   }
+
+  :root {
+    --persona: theme('colors.zinc.900');
+    transition: --persona 0.5s ease;
+  }
+
+  :root[data-theme='yellow-500'] { --persona: theme('colors.yellow.500'); }
+  :root[data-theme='blue-500']   { --persona: theme('colors.sky.500'); }
+  :root[data-theme='green-500']  { --persona: theme('colors.green.500'); }
+  :root[data-theme='red-500']    { --persona: theme('colors.red.600'); }
+  :root[data-theme='orange-500'] { --persona: theme('colors.orange.500'); }
+  :root[data-theme='teal-500']   { --persona: theme('colors.teal.500'); }
 }
 
 * {
