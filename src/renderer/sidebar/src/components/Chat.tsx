@@ -213,7 +213,7 @@ const ChatInput: React.FC<{
                             placeholder="Chat with Astrid..."
                             className="w-full resize-none outline-none bg-transparent
                                      text-foreground placeholder:text-muted-foreground
-                                     min-h-[24px] max-h-[200px] caret-[#C7A357]"
+                                     min-h-[24px] max-h-[200px] caret-persona"
                             rows={1}
                             style={{ lineHeight: '24px' }}
                         />
@@ -227,14 +227,46 @@ const ChatInput: React.FC<{
                 <button
                     onClick={handleSubmit}
                     disabled={disabled || !value.trim()}
-                    className={cn(
-                        'size-9 rounded-full flex items-center justify-center',
-                        'transition-all duration-200',
-                        'bg-[#C7A357] text-primary-foreground',
-                        'hover:opacity-80 disabled:opacity-50'
-                    )}
+                    className="relative flex items-center justify-center size-9 transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-100"
                 >
-                    <ArrowUp className="size-5" />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div
+                            className={cn(
+                                'transition-transform duration-300 ease-out',
+                                !disabled && value.trim().length > 0 ? 'scale-100' : 'scale-0'
+                            )}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                className="h-12 w-12 text-persona fill-current animate-[spin_3s_linear_infinite]"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M10 3.155a4 4 0 0 1 4 0l4.66 2.69a4 4 0 0 1 2 3.464v5.382a4 4 0 0 1-2 3.464L14 20.845a4 4 0 0 1-4 0l-4.66-2.69a4 4 0 0 1-2-3.464V9.309a4 4 0 0 1 2-3.464L10 3.155Z"
+                                />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div
+                        className={cn(
+                            'absolute inset-0 rounded-full bg-persona opacity-50 transition-transform duration-300 ease-out',
+                            !disabled && value.trim().length > 0 ? 'scale-0' : 'scale-100'
+                        )}
+                    />
+
+                    <ArrowUp
+                        className={cn(
+                            'relative z-10 size-5 transition-colors duration-200',
+                            !disabled && value.trim().length > 0
+                                ? 'text-background'
+                                : 'text-primary-foreground'
+                        )}
+                    />
                 </button>
             </div>
         </div>
