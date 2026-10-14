@@ -145,7 +145,7 @@ function CarouselNavigation({ className, classNameButton, alwaysShow }: Carousel
                     classNameButton
                 )}
                 aria-label="Next slide"
-                disabled={index + 1 === itemsCount}
+                disabled={index + 1 >= itemsCount}
                 onClick={() => {
                     if (index < itemsCount - 1) {
                         setIndex(index + 1)
@@ -201,11 +201,14 @@ export type CarouselContentProps = {
 }
 
 function CarouselContent({ children, className, transition }: CarouselContentProps) {
-    const { index, setIndex, setItemsCount, disableDrag } = useCarousel()
+    const { index, setIndex, itemsCount, setItemsCount, disableDrag } = useCarousel()
     const [visibleItemsCount, setVisibleItemsCount] = useState(1)
     const dragX = useMotionValue(0)
     const containerRef = useRef<HTMLDivElement>(null)
+
     const itemsLength = Children.count(children)
+
+    const lastScrollTime = useRef<number>(0)
 
     useEffect(() => {
         if (!containerRef.current) {
@@ -233,16 +236,32 @@ function CarouselContent({ children, className, transition }: CarouselContentPro
             return
         }
 
-        setItemsCount(itemsLength)
+        setItemsCount(itemsLength - 1)
     }, [itemsLength, setItemsCount])
 
     const onDragEnd = () => {
         const x = dragX.get()
 
-        if (x <= -10 && index < itemsLength - 1) {
+        if (x <= -10 && index < itemsCount - 1) {
             setIndex(index + 1)
         } else if (x >= 10 && index > 0) {
             setIndex(index - 1)
+        }
+    }
+
+    const handleWheel = (e: React.WheelEvent) => {
+        const now = Date.now()
+        if (now - lastScrollTime.current < 40) return
+
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
+        if (Math.abs(delta) < 5) return
+
+        if (delta > 0 && index < itemsCount - 1) {
+            setIndex(index + 1)
+            lastScrollTime.current = now
+        } else if (delta < 0 && index > 0) {
+            setIndex(index - 1)
+            lastScrollTime.current = now
         }
     }
 
@@ -265,6 +284,7 @@ function CarouselContent({ children, className, transition }: CarouselContentPro
                 translateX: `-${index * (100 / visibleItemsCount)}%`,
             }}
             onDragEnd={disableDrag ? undefined : onDragEnd}
+            onWheel={handleWheel}
             transition={
                 transition || {
                     damping: 18,
